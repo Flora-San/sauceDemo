@@ -9,7 +9,9 @@ from Pages.loginPage import (
     capture_screenshot,
 )
 from Pages.productPage import add_item_to_cart, get_cart_item_count
-from Pages.cartPage import remove_item_cart, continue_shopping_click
+from Pages.cartPage import remove_item_cart, continue_shopping_click, check_cart_item
+from Pages.checkoutPage import checkout_customer_ok, checkout_completed_ok, checkout_click, checkout_return_home, \
+    click_finish_button, is_error_message_displayed_checkout, cancel_action
 
 # Define the URL of the Sauce Demo website
 SAUCE_DEMO_URL = "https://www.saucedemo.com/"
@@ -35,19 +37,28 @@ def test_item_cart(browser):
     # screenshot_filename = "screenshots/cart_page.png"
     add_item_to_cart(browser)
     browser.save_screenshot("screenshoots/add_item_to_cart.png")
-
-    # Verify that the cart count has increased
-    # cart_count_after = get_cart_item_count(browser)
-    # assert int(cart_count_after) == int(cart_count_before) + 1
     time.sleep(3)
-    browser.save_screenshot("screenshoots/cart_item.png")
 
-    # def remove_item_test(browser):
-    #  browser.get(SAUCE_DEMO_URL)
+    check_cart_item(browser)
+    time.sleep(2)
+    browser.save_screenshot("screenshoots/check_cart_item.png")
+    checkout_click(browser)
+    time.sleep(1)
 
-    remove_item_cart(browser)
-    browser.save_screenshot("screenshoots/remove_item.png")
+    is_error_message_displayed_checkout(browser)
+    browser.save_screenshot("screenshoots/error_message_checkout.png")
+    time.sleep(1)
+
+    cancel_action(browser)
+    browser.save_screenshot("screenshoots/cancel_action.png")
+    time.sleep(1)
+
+    continue_shopping_click(browser)
+    browser.save_screenshot("screenshoot/continue_shopping_button.png")
+    time.sleep(1)
+
     time.sleep(3)
+    browser.save_screenshot("screenshoots/back_home_page.png")
 
 
 if __name__ == "__main__":

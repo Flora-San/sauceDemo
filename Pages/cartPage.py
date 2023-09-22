@@ -74,6 +74,11 @@ def add_item_to_cart(browser, screenshot_filename=None):
     # return get_cart_item_count(browser)
 
 
+def check_cart_item(browser):
+    cart_icon_click = browser.find_element(*CartPageLocators.CART_ICON)
+    cart_icon_click.click()
+
+
 def get_cart_item_count(browser):
     cart_icon = browser.find_element(*ProductPageLocators.CART_ICON)
     return cart_icon.text
@@ -82,3 +87,14 @@ def get_cart_item_count(browser):
 def check_item_cart(browser, screenshot_filename=None):
     item_cart = browser.find_element(*ProductPageLocators.ITEM_BACKPACK)
     time.sleep(3)
+
+
+def remove_item_cart(browser):
+    remove_item = browser.find_element(*CartPageLocators.REMOVE_ITEM_BACKPACK)
+    remove_item.click()
+    # return remove_item.text
+
+
+def continue_shopping_click(browser):
+    continue_shopping_action = browser.find_element(*CartPageLocators.CONTINUE_SHOPPING_BUTTON)
+    continue_shopping_action.click()
